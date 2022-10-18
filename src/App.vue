@@ -4,6 +4,40 @@
 import CUSideBar from './components/Layout/sidebar.vue' ;
 import CUwrapper from './components/Layout/wrapper.vue' ;
 
+import index from './components/index.vue' ;
+import Formularios from './components/formularios.vue' ;
+import nuevoFormulario from './components/nuevoFormulario.vue';
+import Conceptos from './components/conceptos.vue';
+
+
+
+import { ref, computed } from 'vue'
+
+
+ 
+
+
+ 
+const routes = {
+  '/': index,
+  '/formularios': Formularios,
+  '/conceptos': Conceptos,
+
+  '/formularios/nuevo':nuevoFormulario
+  
+}
+ 
+const currentPath = ref(window.location.hash)
+
+window.addEventListener('hashchange', () => {
+  currentPath.value = window.location.hash
+})
+
+const currentView = computed(() => {
+  return routes[currentPath.value.slice(1) || '/'] || NotFound
+})
+
+
 
 </script>
 
@@ -12,7 +46,10 @@ import CUwrapper from './components/Layout/wrapper.vue' ;
   <CUSideBar />
 </div>
 <div class="wrapper d-flex flex-column min-vh-100 bg-light">
-  <CUwrapper />
+  <CUwrapper>
+   
+    <component :is="currentView" />    
+  </CUwrapper>
 </div>
 
 </template>

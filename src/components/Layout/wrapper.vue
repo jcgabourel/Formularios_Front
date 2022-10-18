@@ -4,7 +4,7 @@
         <CUheader />
     </header>
 
-    <div class="body flex-grow-1 px-3"></div>
+    <div class="body flex-grow-1 px-3"><slot></slot></div>
     <footer class="footer"></footer>
   
 </template>
