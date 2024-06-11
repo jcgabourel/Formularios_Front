@@ -1,5 +1,6 @@
 <template>
   <div class="container-lg">
+    <CAlert v-if="SuccesAlert" color="success">A simple success alert—check it out!</CAlert>
     <CCard>
       <CCardHeader component="h5">Nuevo Formulario</CCardHeader>
       <CCardBody>
@@ -62,9 +63,9 @@
             id="Rubro" />
         </div>
          
-
-        <CButton color="primary">Guardar</CButton>
         <CButton component="a"  href="#/formularios" color="secondary">Cancelar</CButton>
+        <CButton color="primary" @click="SuccesAlert=true"> <CSpinner  size="sm"/>Guardar</CButton> 
+    
 
    
         </form>
@@ -74,6 +75,9 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+const SuccesAlert = ref(false)
+</script>
 
 <style lang="scss" scoped></style>

@@ -13,19 +13,20 @@
               <CTableHeaderCell scope="col">Acciones</CTableHeaderCell>
             </CTableRow>
           </CTableHead>
+
           <CTableBody>
-            <CTableRow>
-              <CTableHeaderCell scope="row">1</CTableHeaderCell>
-              <CTableDataCell>Secretaría de Ecología y Medio Ambiente</CTableDataCell >
-              <CTableDataCell>SEMA</CTableDataCell>
-              <CTableDataCell>Activo</CTableDataCell>
+            <CTableRow v-for="formulario in data" >
+              <CTableHeaderCell scope="row">{{formulario.id}}</CTableHeaderCell>
+              <CTableDataCell>{{formulario.Nombre}}</CTableDataCell >
+              <CTableDataCell>{{formulario.Clave}}</CTableDataCell>
+              <CTableDataCell>{{formulario.Activado}}</CTableDataCell>
               <CTableDataCell
                 ><CButtonGroup
                   role="group"
                   aria-label="Basic mixed styles example"
                 >
                   <CButton color="danger">Eliminar</CButton>
-                  <CButton color="warning">Editar</CButton>
+                  <CButton color="warning" component="a" :href="`#/formularios/editar/${formulario.id}`" >Editar</CButton>
                   <CButton color="success" component="a"  href="#/conceptos">Conceptos</CButton>
                 </CButtonGroup>
               </CTableDataCell>
@@ -40,8 +41,17 @@
 </template>
 
 <script setup>
-//import { CAlert } from '@coreui/vue';
-//import CoreuiVue from "@coreui/vue";
+  import { ref } from 'vue'
+  const data = ref(null)
+  const error = ref(null)
+ 
+
+  fetch('http://10.9.200.57:8000/api/formularios')
+  .then((res) => res.json())
+  .then((json) => (data.value = json))
+  .catch((err) => (error.value = err))
+
+
 </script>
 
 <style lang="scss" scoped></style>
